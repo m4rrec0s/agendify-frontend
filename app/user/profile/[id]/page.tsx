@@ -6,11 +6,14 @@ interface UserPageProps {
   };
 }
 
-const UserPage = ({ params }: UserPageProps) => {
+const UserPage = async ({ params }: UserPageProps) => {
+  const resolvedParams = await params;
+  const userId = resolvedParams.id;
+
   return (
     <section>
       <h1>User Page</h1>
-      <p>User ID: {params.id}</p>
+      <p>User ID: {userId}</p>
       <p>Testando o commit</p>
     </section>
   );

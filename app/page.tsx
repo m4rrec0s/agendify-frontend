@@ -29,14 +29,24 @@ import ServiceCard from "./components/serviceCard";
 import { Badge } from "./components/ui/badge";
 // import ClientDashboard from "./components/client/client-dashboard";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
-  if (isAuthenticated) {
-    router.push("/client");
-    return null;
+  useEffect(() => {
+    if (isAuthenticated && !isLoading) {
+      router.push("/client");
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  if (isAuthenticated && !isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
+      </div>
+    );
   }
 
   const GuestContent = () => (

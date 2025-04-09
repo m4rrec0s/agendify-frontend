@@ -26,8 +26,8 @@ import Link from "next/link";
 
 export function ClientSidebar() {
   return (
-    <Sidebar variant="sidebar" collapsible="icon">
-      <SidebarContent className="px-2 mt-[70px]">
+    <Sidebar variant="inset" collapsible="icon" className="rounded-xl">
+      <SidebarContent className="mt-[80px] px-2 py-2 overflow-y-auto">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive>
