@@ -28,7 +28,7 @@ interface AuthContextProps {
   isLoading: boolean;
   isAuthenticated: boolean;
   tempGoogleData: GoogleAuthData | null;
-  loginWithGoogle: () => Promise<void>;
+  loginWithGoogle: (role?: "client" | "owner") => Promise<void>;
   loginWithEmailAndPassword: (credentials: LoginCredentials) => Promise<void>;
   registerWithEmailAndPassword: (
     credentials: RegisterCredentials
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkAuthStatus();
   }, []);
 
-  const loginWithGoogle = async (): Promise<void> => {
+  const loginWithGoogle = async (role?: "client" | "owner"): Promise<void> => {
     setIsLoading(true);
     try {
       const provider = new GoogleAuthProvider();
@@ -108,10 +108,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const googleData = { idToken, firebaseUid, email, name, imageUrl };
 
       try {
-        const response = await axiosClient.post(
-          "/auth/google-login",
-          googleData
-        );
+        // Se o role foi passado, inclui-o na requisição para o backend
+        const payload = role ? { ...googleData, role } : googleData;
+
+        const response = await axiosClient.post("/auth/google-login", payload);
 
         if (response.status === 200 && response.data.user) {
           localStorage.setItem("idToken", idToken);
@@ -242,7 +242,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.removeItem("idToken");
         localStorage.removeItem("firebaseUid");
         setUser(null);
-        router.push("/login");
+        router.push("/");
       })
       .catch((error) => {
         console.error("Erro ao fazer logout:", error);

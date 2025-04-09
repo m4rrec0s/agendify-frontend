@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useAuth } from "./context/AuthContext";
-import Image from "next/image";
 import { Button } from "./components/ui/button";
 import TestimonialCard from "./components/testimonialCard";
 import {
@@ -28,9 +27,17 @@ import FeatureCard from "./components/featureCard";
 import HeroSection from "./components/heroSection";
 import ServiceCard from "./components/serviceCard";
 import { Badge } from "./components/ui/badge";
+// import ClientDashboard from "./components/client/client-dashboard";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { user, isAuthenticated, isLoading, logout } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
+
+  if (isAuthenticated) {
+    router.push("/client");
+    return null;
+  }
 
   const GuestContent = () => (
     <>
@@ -477,102 +484,6 @@ export default function Home() {
     </>
   );
 
-  // Componente para usuário logado
-  const UserContent = () => (
-    <>
-      <header className="w-full py-3 flex items-center justify-between px-5 bg-gray-800">
-        <div>
-          <h1 className="text-white text-2xl font-bold">
-            <b className="text-purple-600">Agend</b>ify
-          </h1>
-        </div>
-
-        <nav className="flex gap-4 items-center">
-          {user?.role === "owner" && (
-            <Link
-              href="/dashboard"
-              className="text-white hover:text-purple-600 transition duration-200"
-            >
-              Dashboard
-            </Link>
-          )}
-          <button
-            onClick={logout}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition duration-200"
-          >
-            Sair
-          </button>
-        </nav>
-      </header>
-      <div className="min-h-dvh flex flex-col items-center justify-center p-5">
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full">
-          <h1 className="text-2xl font-bold mb-4">Bem-vindo, {user?.name}!</h1>
-
-          <div className="flex flex-col space-y-4">
-            {user?.imageUrl && (
-              <div className="flex justify-center mb-4">
-                <Image
-                  src={user.imageUrl}
-                  alt="Foto do perfil"
-                  className="rounded-full"
-                  width={96}
-                  height={96}
-                  priority
-                />
-              </div>
-            )}
-
-            <div className="bg-gray-700 p-4 rounded-lg">
-              <p className="text-gray-300 mb-2">
-                <span className="font-bold">Email:</span> {user?.email}
-              </p>
-              <p className="text-gray-300">
-                <span className="font-bold">Perfil:</span>{" "}
-                {user?.role === "owner" ? "Proprietário" : "Cliente"}
-              </p>
-            </div>
-
-            {user?.role === "client" ? (
-              <div className="mt-4">
-                <h2 className="text-xl font-bold mb-2">
-                  O que você pode fazer:
-                </h2>
-                <ul className="list-disc list-inside text-gray-300">
-                  <li>Buscar serviços disponíveis</li>
-                  <li>Agendar horários com profissionais</li>
-                  <li>Gerenciar seus agendamentos</li>
-                </ul>
-                <Link
-                  href="/services"
-                  className="mt-4 bg-purple-600 text-white w-full py-3 rounded-lg block text-center hover:bg-purple-700 transition-colors"
-                >
-                  Buscar Serviços
-                </Link>
-              </div>
-            ) : (
-              <div className="mt-4">
-                <h2 className="text-xl font-bold mb-2">
-                  O que você pode fazer:
-                </h2>
-                <ul className="list-disc list-inside text-gray-300">
-                  <li>Gerenciar seu negócio</li>
-                  <li>Criar e editar serviços</li>
-                  <li>Ver agendamentos dos clientes</li>
-                </ul>
-                <Link
-                  href="/dashboard"
-                  className="mt-4 bg-blue-600 text-white w-full py-3 rounded-lg block text-center hover:bg-blue-700 transition-colors"
-                >
-                  Acessar Dashboard
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -583,7 +494,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen w-full">
-      {isAuthenticated ? <UserContent /> : <GuestContent />}
+      {!isAuthenticated && <GuestContent />}
     </main>
   );
 }

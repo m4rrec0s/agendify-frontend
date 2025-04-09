@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { LoginCredentials } from "../types/user";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
+import { Calendar } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -83,17 +84,18 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen w-full">
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-80">
       <header className="w-full py-3 flex items-center justify-between px-5">
         <Link href="/">
-          <h1 className="text-white text-2xl font-bold cursor-pointer">
-            <b className="text-purple-600">Agend</b>ify
-          </h1>
+          <div className="flex items-center gap-2">
+            <Calendar className="h-6 w-6 text-purple-600" />
+            <span className="text-xl font-bold">Agendify</span>
+          </div>
         </Link>
       </header>
 
       <div className="min-h-[calc(100vh-70px)] flex flex-col items-center justify-center p-5">
-        <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div className="backdrop-filter backdrop-blur-md bg-white/10 border border-white/20 p-6 rounded-lg shadow-xl max-w-md w-full">
           <h1 className="text-2xl font-bold mb-6 text-center">
             Entrar no Agendify
           </h1>
@@ -117,7 +119,7 @@ export default function LoginPage() {
                 onChange={handleChange}
                 required
                 placeholder="seu@email.com"
-                className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-full p-2 rounded bg-gray-700/50 border border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
             </div>
 
@@ -133,7 +135,7 @@ export default function LoginPage() {
                 onChange={handleChange}
                 required
                 placeholder="••••••••"
-                className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-full p-2 rounded bg-gray-700/50 border border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-purple-600"
               />
             </div>
 
@@ -147,8 +149,8 @@ export default function LoginPage() {
           </form>
 
           <div className="relative flex items-center justify-center my-4">
-            <hr className="w-full border-gray-600" />
-            <span className="absolute bg-gray-800 px-3 text-gray-400 text-sm">
+            <hr className="w-full border-gray-600/50" />
+            <span className="absolute bg-transparent px-3 text-gray-300 text-sm">
               ou
             </span>
           </div>
