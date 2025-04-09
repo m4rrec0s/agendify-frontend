@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAfELjK-bWMEoL1cC3syiitZ57gCBww5Fw",
-  authDomain: "agendify-b24f0.firebaseapp.com",
-  databaseURL: "https://agendify-b24f0-default-rtdb.firebaseio.com",
-  projectId: "agendify-b24f0",
-  storageBucket: "agendify-b24f0.firebasestorage.app",
-  messagingSenderId: "617842457653",
-  appId: "1:617842457653:web:2f4d6b0ab17ba16106c57c",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_API_KEY,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
