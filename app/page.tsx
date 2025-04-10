@@ -51,7 +51,7 @@ export default function Home() {
 
   const GuestContent = () => (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-80">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
         {/* Navigation */}
         <header className="container mx-auto py-4">
           <nav className="flex items-center justify-between">

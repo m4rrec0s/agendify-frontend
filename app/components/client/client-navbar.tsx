@@ -29,6 +29,7 @@ import {
 import { Badge } from "@/app/components/ui/badge";
 import { User as TypeUser } from "@/app/types/user";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface ClientNavbarProps {
   user: TypeUser | null;
@@ -43,10 +44,10 @@ export function ClientNavbar({ user, logout }: ClientNavbarProps) {
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 w-full">
-      <div className="flex items-center gap-2">
+      <Link href={"/"} className="flex items-center gap-2">
         <Calendar className="h-6 w-6 text-purple-600" />
         <span className="text-xl font-bold">Agendify</span>
-      </div>
+      </Link>
       <SidebarTrigger />
       <div className="flex flex-1 items-center gap-4 md:gap-6">
         <form className="relative hidden md:flex-1 md:block max-w-md">

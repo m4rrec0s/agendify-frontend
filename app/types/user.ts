@@ -1,3 +1,6 @@
+import { Appointment } from "./appointment";
+import { Business } from "./business";
+
 export interface User {
   id: string;
   firebaseUid: string;
@@ -5,6 +8,8 @@ export interface User {
   email: string;
   role: "client" | "owner" | "admin";
   imageUrl?: string;
+  appointments?: Appointment[];
+  businesses?: Business[];
   createdAt?: Date;
   updatedAt?: Date;
 }
