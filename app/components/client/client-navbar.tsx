@@ -32,9 +32,10 @@ import { useRouter } from "next/navigation";
 
 interface ClientNavbarProps {
   user: TypeUser | null;
+  logout: () => void;
 }
 
-export function ClientNavbar({ user }: ClientNavbarProps) {
+export function ClientNavbar({ user, logout }: ClientNavbarProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
@@ -128,7 +129,7 @@ export function ClientNavbar({ user }: ClientNavbarProps) {
                 <span>Settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={logout}>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>

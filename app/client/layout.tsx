@@ -10,11 +10,11 @@ import { useAuth } from "../context/AuthContext";
 
 function ClientLayout({ children }: { children: React.ReactNode }) {
   const { state } = useSidebar();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <div className="flex flex-col min-h-screen bg-background w-full">
-      <ClientNavbar user={user} />
+      <ClientNavbar user={user} logout={logout} />
       <div className="flex flex-1 pt-5 w-full">
         {" "}
         <ClientSidebar />
